@@ -1,0 +1,24 @@
+apiVersion: deckhouse.io/v1
+kind: ClusterConfiguration
+clusterType: Static
+podSubnetCIDR: 10.111.0.0/16
+serviceSubnetCIDR: 10.222.0.0/16
+kubernetesVersion: "1.26"
+clusterDomain: "cluster.local"
+---
+apiVersion: deckhouse.io/v1
+kind: InitConfiguration
+deckhouse:
+  releaseChannel: Stable
+  configOverrides:
+    global:
+      modules:
+        publicDomainTemplate: "%s.dev.elma.devjftp.com"
+    cniFlannelEnabled: true
+    cniFlannel:
+      podNetworkMode: VXLAN
+---
+apiVersion: deckhouse.io/v1
+kind: StaticClusterConfiguration
+internalNetworkCIDRs:
+  - 77.223.119.0/24
